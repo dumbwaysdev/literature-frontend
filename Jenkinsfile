@@ -14,17 +14,17 @@ pipeline {
             steps {
                 sshagent([credential]){
                     sh """ssh -o StrictHostKeyChecking=no ${server} << EOF
-		    echo "Pulling Wayshub Backend Repository"
+                    echo "Pulling Wayshub Backend Repository"
                     cd ${dir}
                     docker container stop ${cont}
                     docker image rm ${cont}:latest
-		    git pull ${rname} ${branch}
+                    git pull ${rname} ${branch}
                     exit
                     EOF"""
                 }
             }
         }
-            
+
         stage('Building Docker Image') {
             steps {
                 sshagent([credential]){
@@ -32,12 +32,12 @@ pipeline {
                     echo "Building Image"
                     cd ${dir}
                     docker build -t ${img}:${env.BUILD_ID} .
-		    exit
+                    exit
                     EOF"""
                 }
             }
         }
-            
+
         stage('Image Deployment') {
             steps {
                 sshagent([credential]){
@@ -45,29 +45,29 @@ pipeline {
                     cd ${dir}
                     docker tag ${img}:${env.BUILD_ID} ${img}:latest
                     docker run ${img}:latest
-		    exit
+                    exit
                     EOF"""
                 }
             }
         }
-        
+
         stage('Pushing to Docker Hub (aimingds)') {
             steps {
                 sshagent([credential]){
                     sh """ssh -o StrictHostKeyChecking=no ${server} << EOF
                     cd ${dir}
                     docker image push ${img}:latest
-		    exit
+                    exit
                     EOF"""
                 }
             }
         }
-	stage('Push Notification Discord') {
-	   steps {
+        stage('Push Notification Discord') {
+           steps {
                 sshagent([credential]){
-		    discordSend description: "wayshub-backend:" + BUILD_ID, footer: "Kelompok 2 - Dumbways.id Devops Batch 13", link: BUILD_URL, result: currentBuild.currentResult, scmWebUrl: '', title: 'Wayshub-backend', webhookURL: 'https://discord.com/api/webhooks/1024706033786028103/Bn02YoDHmtVnK2HpWxckZzCItV8LMjCcNNn5mdY-V_nCQDz-0N42R8cKevG03IurUJRH'
-		}
-	    }	
-	}
+                    discordSend description: "wayshub-backend:" + BUILD_ID, footer: "Kelompok 2 - Dumbways.id Devops Batch 13", link: BUILD_URL, result: currentBuild.currentResult, scmWebUrl: '', title: 'Wayshub-backend', webhookURL: 'https://discord.com/api/webhooks/10>                }
+            }
+        }
     }
 }
+
