@@ -44,7 +44,7 @@ pipeline {
                     sh """ssh -o StrictHostKeyChecking=no ${server} << EOF
                     cd ${dir}
                     docker tag ${img}:${env.BUILD_ID} ${img}:latest
-                    docker-compose -f start-literature.yml -d
+                    docker-compose -f start-literature.yml up -d
                     exit
                     EOF"""
                 }
