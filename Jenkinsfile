@@ -43,8 +43,8 @@ pipeline {
                 sshagent([credential]){
                     sh """ssh -o StrictHostKeyChecking=no ${server} << EOF
                     cd ${dir}
-                    docker tag ${img}:${env.BUILD_ID} ${img}:${env.BUILD_ID}-latest
-                    docker container run -d ${cont}
+                    docker tag ${img}:${env.BUILD_ID} ${img}:latest
+                    docker run ${img}:latest
 		    exit
                     EOF"""
                 }
@@ -56,7 +56,7 @@ pipeline {
                 sshagent([credential]){
                     sh """ssh -o StrictHostKeyChecking=no ${server} << EOF
                     cd ${dir}
-                    docker image push ${img}:${env.BUILD_ID}-latest
+                    docker image push ${img}:latest
 		    exit
                     EOF"""
                 }
