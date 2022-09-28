@@ -17,7 +17,7 @@ pipeline {
                     echo "Pulling Wayshub Backend Repository"
                     cd ${dir}
                     docker container stop ${cont}
-                    docker image rm ${cont}:latest
+                    docker image rm ${img}:latest
                     git pull ${rname} ${branch}
                     exit
                     EOF"""
@@ -44,7 +44,7 @@ pipeline {
                     sh """ssh -o StrictHostKeyChecking=no ${server} << EOF
                     cd ${dir}
                     docker tag ${img}:${env.BUILD_ID} ${img}:latest
-                    docker run ${img}:latest
+                    docker-compose -f start-literature.yml -d
                     exit
                     EOF"""
                 }
@@ -65,11 +65,9 @@ pipeline {
         stage('Push Notification Discord') {
            steps {
                 sshagent([credential]){
-                    discordSend description: "wayshub-backend:" + BUILD_ID, footer: "Ade Muhammad Safari - Dumbways.id Devops Batch 13", link: BUILD_URL, result: currentBuild.currentResult, scmWebUrl: '', title: 'Wayshub-backend', webhookURL: 'https://discord.com/api/webhooks/1024706033786028103/Bn02YoDHmtVnK2HpWxckZzCItV8LMjCcNNn5mdY-V_nCQDz-0N42R8cKevG03IurUJRH'              
-               }
+                    discordSend description: "wayshub-backend:" + BUILD_ID, footer: "Ade Muhammad Safari - Dumbways.id Devops Batch 13", link: BUILD_URL, result: currentBuild.currentResult, scmWebUrl: '', title: 'Wayshub-backend', webhookURL: 'https://discord.com/api/webhooks/1024706033786028103/Bn02YoDHmtVnK2HpWxckZzCItV8LMjCcNNn5mdY-V_nCQDz-0N42R8cKevG03IurUJRH'                
+		}
             }
         }
     }
-}
-
 
