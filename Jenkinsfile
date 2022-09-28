@@ -44,7 +44,7 @@ pipeline {
                     sh """ssh -o StrictHostKeyChecking=no ${server} << EOF
                     cd ${dir}
                     docker tag ${img}:${env.BUILD_ID} ${img}:latest
-                    docker container run -d ${cont}
+                    docker run ${img}:latest
 		    exit
                     EOF"""
                 }
