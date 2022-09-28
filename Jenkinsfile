@@ -65,7 +65,8 @@ pipeline {
         stage('Push Notification Discord') {
            steps {
                 sshagent([credential]){
-                    discordSend description: "wayshub-backend:" + BUILD_ID, footer: "Kelompok 2 - Dumbways.id Devops Batch 13", link: BUILD_URL, result: currentBuild.currentResult, scmWebUrl: '', title: 'Wayshub-backend', webhookURL: 'https://discord.com/api/webhooks/10>                }
+                    discordSend description: "wayshub-backend:" + BUILD_ID, footer: "Ade Muhammad Safari - Dumbways.id Devops Batch 13", link: BUILD_URL, result: currentBuild.currentResult, scmWebUrl: '', title: 'Wayshub-backend', webhookURL: 'https://discord.com/api/webhooks/1024706033786028103/Bn02YoDHmtVnK2HpWxckZzCItV8LMjCcNNn5mdY-V_nCQDz-0N42R8cKevG03IurUJRH'              
+               }
             }
         }
     }
