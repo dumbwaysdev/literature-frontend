@@ -1,6 +1,6 @@
-FROM node:10.24.1-alpine
+FROM node:16.17.1-alpine
 WORKDIR /app
-COPY . .
+COPY build .
 RUN npm install -g serve
 EXPOSE 3000
 CMD ["serve","-s","."]
