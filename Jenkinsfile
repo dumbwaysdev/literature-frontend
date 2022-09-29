@@ -17,6 +17,7 @@ pipeline {
                     echo "Pulling Wayshub Backend Repository"
                     cd ${dir}
                     docker container stop ${cont}
+                    docker container rm ${cont}
                     docker image rm ${img}:latest
                     git pull ${rname} ${branch}
                     exit
@@ -44,7 +45,8 @@ pipeline {
                     sh """ssh -o StrictHostKeyChecking=no ${server} << EOF
                     cd ${dir}
                     docker tag ${img}:${env.BUILD_ID} ${img}:latest
-                    docker-compose -f ~/start-literature.yml up -d
+                    cd ..
+                    docker-compose -f start-literature.yml up -d
                     exit
                     EOF"""
                 }
