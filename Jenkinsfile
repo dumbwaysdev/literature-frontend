@@ -11,6 +11,8 @@ pipeline{
                 sshagent([credential]){
                     sh """ssh -o StrictHostKeyChecking=no ${server} << EOF
                     cd ${dir}
+                    git config --global user.email muhamaddestar5@gmail.com
+                    git config --global user.name ademuh
                     git pull origin ${branch}
                     exit
                     EOF"""
