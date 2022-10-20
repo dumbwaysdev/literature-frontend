@@ -1,6 +1,6 @@
 def credential = 'ade-test'
 def server = 'ads@103.176.79.216'
-def directory ='/home/ads/literature-frontend'
+def dir ='/home/ads/literature-frontend'
 def branch = 'production'
 
 pipeline{
